@@ -12,6 +12,7 @@ public class Main {
         JSONObject database = databaseOperations.getJSONObject(databaseOperations.connect());
         ChartOperations chartOperations = new ChartOperations(databaseOperations, database);
 
+        System.out.println("The chart was last updated on " + chartOperations.dateOfPublication);
         System.out.print("How many top charted songs would you like to see? ");
         int input = scanner.nextInt();
         ArrayList<Song> topChartedSongs = chartOperations.getTopChartedSongs(input, chartOperations.getSongs());
