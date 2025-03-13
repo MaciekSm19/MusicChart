@@ -24,9 +24,9 @@ public class ChartOperations {
             String title = data.getJSONObject(i).getString("song");
             String artist = data.getJSONObject(i).getString("artist");
             Integer thisWeek = data.getJSONObject(i).getInt("this_week");
-            Integer lastWeek;
-            if (data.getJSONObject(i).get("last_week").equals(null)) lastWeek = null;
-            else lastWeek = data.getJSONObject(i).getInt("last_week");
+            Integer lastWeek = null;
+
+            if (!data.getJSONObject(i).isNull("last_week")) lastWeek = data.getJSONObject(i).getInt("last_week");
 
             Integer peakPosition = data.getJSONObject(i).getInt("peak_position");
             Integer weeksOnChart = data.getJSONObject(i).getInt("weeks_on_chart");
