@@ -1,34 +1,40 @@
 package org.example;
 
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URISyntaxException;
 import java.net.URI;
 
 public class DatabaseOperations {
-    HttpURLConnection connect() {
-        HttpURLConnection connection = null;
-        try {
-            URI uri = new URI("https://raw.githubusercontent.com/mhollingshead/billboard-hot-100/main/recent.json");
-            connection = (HttpURLConnection) uri.toURL().openConnection();
+    private final URI uri;
 
-            if(connection.getResponseCode() != 200) throw new JSONFileNotFoundException();
-        } catch (IOException | URISyntaxException | JSONFileNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-
-        return connection;
+    public DatabaseOperations(String uri) {
+        this.uri = URI.create(uri);
     }
 
-    JSONObject getJSONObject(HttpURLConnection connection) {
+    String fetchJson() throws IOException {
+        return readInputStream(connect().getInputStream());
+    }
+
+     private HttpURLConnection connect() {
+        HttpURLConnection connection = null;
+        try {
+            connection = (HttpURLConnection) uri.toURL().openConnection();
+            connection.setRequestMethod("GET");
+            if(connection.getResponseCode() != 200) throw new JSONFileNotFoundException();
+        } catch (IOException | JSONFileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+         return connection;
+    }
+
+    private String readInputStream(InputStream inputStream) {
         StringBuilder stringBuilder = null;
 
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
             stringBuilder = new StringBuilder();
             while ((line = reader.readLine()) != null) stringBuilder.append(line);
@@ -37,7 +43,6 @@ public class DatabaseOperations {
             System.out.println(e.getMessage());
         }
 
-        assert stringBuilder != null;
-        return new JSONObject(stringBuilder.toString());
+        return stringBuilder.toString();
     }
 }
