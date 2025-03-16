@@ -23,7 +23,9 @@ public class DatabaseOperations {
         try {
             connection = (HttpURLConnection) uri.toURL().openConnection();
             connection.setRequestMethod("GET");
-            if(connection.getResponseCode() != 200) throw new JSONFileNotFoundException();
+            if(connection.getResponseCode() != 200) {
+                throw new JSONFileNotFoundException();
+            }
         } catch (IOException | JSONFileNotFoundException e) {
             System.out.println(e.getMessage());
         }
