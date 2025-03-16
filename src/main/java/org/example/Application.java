@@ -8,7 +8,8 @@ public class Application {
         SongResponse allSongs = null;
 
         try {
-            allSongs = new SongResponseFactory(new JsonDataImporter("https://raw.githubusercontent.com/mhollingshead/billboard-hot-100/main/recent.json")).createSongResponse();
+            allSongs = new SongResponseFactory(
+                    new JsonDataImporter("https://raw.githubusercontent.com/mhollingshead/billboard-hot-100/main/recent.json")).createSongResponse();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
