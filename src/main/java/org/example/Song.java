@@ -1,9 +1,9 @@
 package org.example;
 
 public record Song (
-    String title,
+    String song,
     String artist,
-    Integer thisWeek,
-    Integer lastWeek,
-    Integer peakPosition,
-    Integer weeksOnChart ) {}
+    Integer this_week,
+    Integer last_week,
+    Integer peak_position,
+    Integer weeks_on_chart) {}
