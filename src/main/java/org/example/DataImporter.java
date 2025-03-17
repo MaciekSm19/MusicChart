@@ -14,7 +14,7 @@ public class JsonDataImporter {
     private ObjectMapper mapper = null;
     private JsonNode jsonRoot = null;
 
-    public JsonDataImporter(String address) {
+    public DataImporter(String address) {
         try {
             URI uri = new URI(address);
             this.mapper = new ObjectMapper();
