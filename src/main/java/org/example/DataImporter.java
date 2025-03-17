@@ -19,7 +19,7 @@ public class DataImporter {
             URI uri = new URI(address);
             this.mapper = new ObjectMapper();
             this.jsonRoot = mapper.readTree(uri.toURL());
-        } catch (IOException | URISyntaxException  e) {
+        } catch (IOException | URISyntaxException e) {
             throw new RuntimeException();
         }
     }
